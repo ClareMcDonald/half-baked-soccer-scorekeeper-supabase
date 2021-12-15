@@ -30,43 +30,58 @@ nameForm.addEventListener('submit', (e) => {
     // don't forget to prevent the default form behavior!
     e.preventDefault();
     // get the name data from the form
-    const data = new nameForm(currentGameEl);
+    const data = new formData(nameForm);
+    newName1 = data.get('team-one');
+    newName2 = data.get('team-two');
+
     // set the state to this data from the form
+    name1.textContent = newName1;
+    name2.textContent = newName2;
 
     // reset the form values
+    nameForm.reset();
 
     // display updated data in the current game div
+    currentGameEl.append(name1, name2);
 });
 
 
 teamOneAddButton.addEventListener('click', () => {
     // increment the current state for team one's score
-    
+    score1++;
+
     // display updated data in the current game div
+
 });
 
 teamTwoAddButton.addEventListener('click', () => {
     // increment the current state for team two's score
+    score2++;
 
     // display updated data in the current game div
+
 });
 
 teamOneSubtractButton.addEventListener('click', () => {
     // decrement the current state for team one's score
+    score1--;
 
     // display updated data in the current game div
+
 });
 
 teamTwoSubtractButton.addEventListener('click', () => {
     // decrement the current state for team two's score
+    score2--;
 
     // display updated data in the current game div
+
 });
 
 finishGameButton.addEventListener('click', async() => {
     
     // create a new game using the current game state
-    
+    await createGame(???);
     // re-fetch the games to get the updated state
     
     // reassign the past games state to the re-fetched, updated games
@@ -95,14 +110,28 @@ window.addEventListener('', async() => {
 
 
 function displayCurrentGameEl() {
+    const currentGame {
+        name1,
+        name2,
+        score1,
+        score2
+    };
+
     // clear out the current game div
+    currentGameEl.textContent = '';
 
     // change the label to show team one's name;
+    teamOneLabel.textContent = name1;
+        
     // change the label to show team two's name;
-
+    teamTwoLabel.textContent = name2;
+        
     // call the render game function to create a game element
-    
+    const gameEl = renderGame(currentGame);
+    gameEl.classList.add('current');
+
     // append the element to the cleared out current game div
+    currentGameEl.append(gameEl);
 }
 
 
