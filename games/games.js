@@ -84,8 +84,10 @@ finishGameButton.addEventListener('click', async() => {
     await createGame(name1, name2, score1, score2);
 
     // re-fetch the games to get the updated state
-    
+    displayAllGames();
+
     // reassign the past games state to the re-fetched, updated games
+    
     //while (pastGamesEl.firstChild) {
     //    pastGamesEl.firstChild.remove();
     //}
@@ -110,6 +112,7 @@ window.addEventListener('', async() => {
     // check if there are any
     // if there are, set those as the initial state of pastGames
     // then display all the games (hint: call displayAllGames())
+    await displayAllGames();
 });
 
 
@@ -139,12 +142,18 @@ function displayCurrentGameEl() {
 }
 
 
-function displayAllGames() {
+async function displayAllGames() {
     // clear out the past games list in the DOM
+    pastGamesEl.textContent = '';
 
     // fetch and loop through the past games 
+    const games = await getGames();
+    for (let game of games) {
+        const newGameEl = renderGame(game);
+        pastGamesEl.append(newGameEl);
+    }
     // render and append a past game for each past game in state
 }
 
-
+displayAllGames();
 displayCurrentGameEl();

@@ -7,7 +7,7 @@ export async function createGame(game){
     const response = await client
         // create a single new game in the games table using the above object
         .from('games')
-        .single();
+        .select();
     return checkError(response);
 }
 
