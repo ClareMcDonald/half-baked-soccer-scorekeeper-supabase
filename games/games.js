@@ -82,9 +82,13 @@ finishGameButton.addEventListener('click', async() => {
     
     // create a new game using the current game state
     await createGame(???);
+
     // re-fetch the games to get the updated state
     
     // reassign the past games state to the re-fetched, updated games
+    while (pastGamesEl.firstChild) {
+        pastGamesEl.firstChild.remove();
+    }
     
     displayAllGames();
     
