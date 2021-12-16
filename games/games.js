@@ -31,12 +31,12 @@ nameForm.addEventListener('submit', (e) => {
     e.preventDefault();
     // get the name data from the form
     const data = new FormData(nameForm);
-    const newName1 = data.get('team-one');
-    const newName2 = data.get('team-two');
+    name1 = data.get('team-one');
+    name2 = data.get('team-two');
 
     // set the state to this data from the form
-    teamOneLabel.textContent = newName1;
-    teamTwoLabel.textContent = newName2;
+    teamOneLabel.textContent = name1;
+    teamTwoLabel.textContent = name2;
 
     // reset the form values
     nameForm.reset();
@@ -81,7 +81,14 @@ teamTwoSubtractButton.addEventListener('click', () => {
 finishGameButton.addEventListener('click', async() => {
     
     // create a new game using the current game state
-    await createGame(name1, name2, score1, score2);
+    //await createGame(name1, name2, score1, score2);
+    const newGame = {
+        name1,
+        name2,
+        score1,
+        score2
+    };
+    await createGame(newGame);
 
     // re-fetch the games to get the updated state
     displayAllGames();
@@ -107,7 +114,7 @@ logoutButton.addEventListener('click', () => {
 });
 
  // on load . . .
-window.addEventListener('', async() => {
+window.addEventListener('load', async() => {
     // fetch all games
     // check if there are any
     // if there are, set those as the initial state of pastGames
@@ -117,13 +124,6 @@ window.addEventListener('', async() => {
 
 
 function displayCurrentGameEl() {
-    const currentGame = {
-        name1,
-        name2,
-        score1,
-        score2
-    };
-
     // clear out the current game div
     currentGameEl.textContent = '';
 
@@ -134,7 +134,13 @@ function displayCurrentGameEl() {
     teamTwoLabel.textContent = name2;
         
     // call the render game function to create a game element
-    const gameEl = renderGame(currentGame);
+    const gameEl = renderGame({
+        name1, 
+        name2,
+        score1,
+        score2
+    });
+
     gameEl.classList.add('current');
 
     // append the element to the cleared out current game div
@@ -143,14 +149,16 @@ function displayCurrentGameEl() {
 
 
 async function displayAllGames() {
-    // clear out the past games list in the DOM
+    const allGames = await getGames();
+    pastGamesEl.textContent = '';
+        // clear out the past games list in the DOM
     pastGamesEl.textContent = '';
 
     // fetch and loop through the past games 
-    const games = await getGames();
-    for (let game of games) {
-        const newGameEl = renderGame(game);
-        pastGamesEl.append(newGameEl);
+    //const games = await getGames();
+    for (let game of allGames) {
+        const gameEl = renderGame(game);
+        pastGamesEl.append(gameEl);
     }
     // render and append a past game for each past game in state
 }

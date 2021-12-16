@@ -3,11 +3,12 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsI
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export async function createGame(game){
+export async function createGame(game) {
+    const newGame = { ...game };
     const response = await client
         // create a single new game in the games table using the above object
         .from('games')
-        .select();
+        .instert([newGame]);
     return checkError(response);
 }
 
