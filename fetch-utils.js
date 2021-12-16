@@ -8,7 +8,7 @@ export async function createGame(game) {
     const response = await client
         // create a single new game in the games table using the above object
         .from('games')
-        .instert([newGame]);
+        .insert([newGame]);
     return checkError(response);
 }
 
