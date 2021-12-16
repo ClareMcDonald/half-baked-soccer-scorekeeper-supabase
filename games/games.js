@@ -30,13 +30,13 @@ nameForm.addEventListener('submit', (e) => {
     // don't forget to prevent the default form behavior!
     e.preventDefault();
     // get the name data from the form
-    const data = new formData(nameForm);
-    newName1 = data.get('team-one');
-    newName2 = data.get('team-two');
+    const data = new FormData(nameForm);
+    const newName1 = data.get('team-one');
+    const newName2 = data.get('team-two');
 
     // set the state to this data from the form
-    name1.textContent = newName1;
-    name2.textContent = newName2;
+    teamOneLabel.textContent = newName1;
+    teamTwoLabel.textContent = newName2;
 
     // reset the form values
     nameForm.reset();
@@ -51,7 +51,7 @@ teamOneAddButton.addEventListener('click', () => {
     score1++;
 
     // display updated data in the current game div
-
+    displayCurrentGameEl();
 });
 
 teamTwoAddButton.addEventListener('click', () => {
@@ -59,7 +59,7 @@ teamTwoAddButton.addEventListener('click', () => {
     score2++;
 
     // display updated data in the current game div
-
+    displayCurrentGameEl();
 });
 
 teamOneSubtractButton.addEventListener('click', () => {
@@ -67,7 +67,7 @@ teamOneSubtractButton.addEventListener('click', () => {
     score1--;
 
     // display updated data in the current game div
-
+    displayCurrentGameEl();
 });
 
 teamTwoSubtractButton.addEventListener('click', () => {
@@ -75,21 +75,21 @@ teamTwoSubtractButton.addEventListener('click', () => {
     score2--;
 
     // display updated data in the current game div
-
+    displayCurrentGameEl();
 });
 
 finishGameButton.addEventListener('click', async() => {
     
     // create a new game using the current game state
-    await createGame(???);
+    await createGame(name1, name2, score1, score2);
 
     // re-fetch the games to get the updated state
     
     // reassign the past games state to the re-fetched, updated games
-    while (pastGamesEl.firstChild) {
-        pastGamesEl.firstChild.remove();
-    }
-    
+    //while (pastGamesEl.firstChild) {
+    //    pastGamesEl.firstChild.remove();
+    //}
+
     displayAllGames();
     
     name1 = '';
@@ -114,7 +114,7 @@ window.addEventListener('', async() => {
 
 
 function displayCurrentGameEl() {
-    const currentGame {
+    const currentGame = {
         name1,
         name2,
         score1,
